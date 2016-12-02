@@ -1,0 +1,6 @@
+File Searcher Requirements
+- Find all files that match a given filter at a given location
+    - Only match files
+    - Use current location if given location is omitted
+    - Search sub-folders from given location
+- Further filter files using a content filter

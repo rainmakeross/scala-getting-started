@@ -1,0 +1,53 @@
+buildscript {
+    dependencies {
+        classpath "org.github.ngbinh.scalastyle:gradle-scalastyle-plugin_2.11:0.8.2"
+    }}
+
+plugins {
+    id "scala"
+    id "com.github.maiflai.scalatest" version "0.14"
+    id "net.saliman.cobertura" version "2.3.1"
+}
+
+group 'com.rainmakeross.tutorial'
+version '1.0-SNAPSHOT'
+
+task wrapper(type: Wrapper) {
+  gradleVersion = '3.1'
+  distributionUrl = "https://services.gradle.org/distributions/gradle-$gradleVersion-all.zip"
+}
+
+
+
+apply plugin: 'scalaStyle'
+
+repositories {
+    jcenter()
+}
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+dependencies {
+    compile 'org.scala-lang:scala-library:2.11.8'
+    compile 'com.typesafe.akka:akka-http-experimental_2.11:2.4.2'
+    compile 'de.heikoseeberger:akka-http-argonaut_2.11:1.5.2'
+
+    testCompile 'junit:junit:4.12'
+    testCompile 'org.scalatest:scalatest_2.11:2.2.6'
+    testCompile 'org.scalamock:scalamock-scalatest-support_2.11:3.2.2'
+    testRuntime 'org.scala-lang.modules:scala-xml_2.11:1.0.5'
+    testRuntime 'org.pegdown:pegdown:1.1.0'
+    testRuntime "org.slf4j:slf4j-api:1.7.10"
+}
+
+scalaStyle {
+    configLocation = "scalastyle_config.xml"
+    includeTestSourceDirectory = true
+    source = "src/main/scala"
+    testSource = "src/test/scala"
+}
+
+cobertura{
+    coverageFormats = ['xml']
+}
